@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
+import 'i10n/localization_intl.dart';
 
 void main() {
   runApp(Ledger());
@@ -26,6 +29,17 @@ class Ledger extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+      localizationsDelegates: [
+        // ... app-specific localization delegate[s] here
+        LedgerLocalizationsDelegate(),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale('en', 'US'), // English
+        const Locale('zh', 'CN'), // Chinese
+        // ... other locales the app supports
+      ],
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -97,11 +111,9 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Text(LedgerLocalizations.of(context).title),
             Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
+                LedgerLocalizations.of(context).remainingEmailsMessage(_counter),
               style: Theme.of(context).textTheme.headline4,
             ),
           ],
