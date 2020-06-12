@@ -22,8 +22,8 @@ class Ledger extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
       ],
       supportedLocales: [
-        const Locale('en', 'US'), // English
         const Locale('zh'), // Chinese
+        const Locale('en', 'US'), // English
       ],
       home: HomePage(),
     );
@@ -54,10 +54,6 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(LedgerLocalizations.of(context).title),
-            Text(
-                LedgerLocalizations.of(context).remainingEmailsMessage(_counter),
-              style: Theme.of(context).textTheme.headline4,
-            ),
           ],
         ),
       ),
