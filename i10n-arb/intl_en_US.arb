@@ -6,4 +6,9 @@
     "type": "text",
     "placeholders": {}
   }
+  "doubleClickHint": "Double click to exit",
+    "@doubleClickHint": {
+      "type": "text",
+      "placeholders": {}
+    }
 }

@@ -9,7 +9,7 @@ class LedgerLocalizations {
   }
 
   static Future<LedgerLocalizations> load(Locale locale) {
-    final String name = locale.countryCode.isEmpty ? locale.languageCode : locale.toString();
+    final String name = (locale.countryCode == null|| locale.countryCode.isEmpty) ? locale.languageCode : locale.toString();
     final String localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((b) {
       Intl.defaultLocale = localeName;
@@ -23,6 +23,12 @@ class LedgerLocalizations {
       name: 'title',
       desc: '应用标题',
     );
+  }
+
+  String get doubleClickHint {
+    return Intl.message(
+        '双击退出',
+        name: "doubleClickHint");
   }
 
 }

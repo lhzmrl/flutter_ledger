@@ -1,8 +1,13 @@
 {
-  "@@last_modified": "2020-06-12T17:46:41.887686",
+  "@@last_modified": "2020-06-17T14:46:54.201472",
   "title": "Keep记账",
   "@title": {
     "description": "应用标题",
+    "type": "text",
+    "placeholders": {}
+  },
+  "doubleClickHint": "双击退出",
+  "@doubleClickHint": {
     "type": "text",
     "placeholders": {}
   }
