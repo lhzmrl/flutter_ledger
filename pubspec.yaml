@@ -58,6 +58,10 @@ flutter:
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
 
+  assets:
+    - assets/images/3.0x/ic_arrow_down.png
+    - assets/images/3.0x/ic_arrow_up.png
+
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
@@ -77,3 +81,8 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+  fonts:
+    - family: LedgerIcon
+      fonts:
+        - asset: assets/iconfont/ledger_iconfont.ttf

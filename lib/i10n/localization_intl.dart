@@ -31,6 +31,24 @@ class LedgerLocalizations {
         name: "doubleClickHint");
   }
 
+  String get property {
+    return Intl.message(
+        '资产',
+        name: "property");
+  }
+
+  String get transactions {
+    return Intl.message(
+        '账单',
+        name: "transactions");
+  }
+
+  String get statistics {
+    return Intl.message(
+        '统计',
+        name: "statistics");
+  }
+
 }
 
 class LedgerLocalizationsDelegate extends LocalizationsDelegate<LedgerLocalizations> {

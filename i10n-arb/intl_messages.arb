@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2020-06-17T14:46:54.201472",
+  "@@last_modified": "2020-06-18T12:01:08.304989",
   "title": "Keep记账",
   "@title": {
     "description": "应用标题",
@@ -8,6 +8,21 @@
   },
   "doubleClickHint": "双击退出",
   "@doubleClickHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "property": "资产",
+  "@property": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "transactions": "账单",
+  "@transactions": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "statistics": "统计",
+  "@statistics": {
     "type": "text",
     "placeholders": {}
   }

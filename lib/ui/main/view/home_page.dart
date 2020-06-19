@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:ledger/common/ledger_icon.dart';
 import 'package:ledger/i10n/localization_intl.dart';
-import 'package:ledger/ui/transaction/view/add_new_trans_page.dart';
+import 'package:ledger/ui/property/view/property_page.dart';
+import 'package:ledger/ui/statistics/view/statistics_page.dart';
+import 'package:ledger/ui/transaction/view/transactions_page.dart';
 
 class HomePage extends StatefulWidget {
 
@@ -14,6 +17,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   PageController _controller; //页面控制器，初始0
+  List<Widget> pages = <Widget>[
+    TransactionsPage(),
+    PropertyPage(),
+    StatisticsPage(),
+  ];
+  int _index = 0;
 
   @override
   void initState() {
@@ -22,82 +31,51 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose(); //释放控制器
+  }
+
+  @override
   Widget build(BuildContext context) {
     return _WillPopScope(Scaffold(
-      body: PageView(
-        physics: const NeverScrollableScrollPhysics(),
-        controller: _controller,
-        children: <Widget>[
-          AddNewTransactionPage(),
-          AddNewTransactionPage(),
-          AddNewTransactionPage(),
-        ],
-      ),
-      bottomNavigationBar: _HomePageBottomBar())
-    );
-  }
-
-}
-
-class _HomePageBottomBar extends StatefulWidget {
-
-  final Color color = Colors.white;
-
-  @override
-  State<StatefulWidget> createState() {
-    return _HomePageBottomBarState();
-  }
-}
-
-class _HomePageBottomBarState extends State<_HomePageBottomBar> {
-
-  final borderTR = const BorderRadius.only(topRight: Radius.circular(10));
-  final borderTL = const BorderRadius.only(topLeft: Radius.circular(10));
-  final paddingTR = const EdgeInsets.only(top: 2, right: 2);
-  final paddingTL = const EdgeInsets.only(top: 2, left: 2);
-
-  int _position = 0;
-  List<String> info = ["A", "B", "C"];
-
-  @override
-  Widget build(BuildContext context) {
-    return BottomAppBar(
-      elevation: 2,
-      shape: const CircularNotchedRectangle(),
-      notchMargin: 5,
-      color: widget.color,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: info
-            .map((e) => _buildChild(context, info.indexOf(e), widget.color))
-            .toList(),
+        body: PageView(
+          physics: const NeverScrollableScrollPhysics(),
+          controller: _controller,
+          children: pages,
+        ),
+        bottomNavigationBar: BottomAppBar(
+            elevation: 2,
+            shape: const CircularNotchedRectangle(),
+            notchMargin: 5,
+            color: Colors.white,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                _createTab(1, LedgerLocalizations.of(context).property, Icon(LedgerIcons.NAVI_PROPERTY)),
+                _createTab(0, LedgerLocalizations.of(context).transactions, Icon(LedgerIcons.NAVI_TRANS)),
+                _createTab(2, LedgerLocalizations.of(context).statistics, Icon(LedgerIcons.NAVI_STATISTICS)),
+              ],
+            )
+        )
       )
     );
   }
 
-  Widget _buildChild(BuildContext context, int i, Color color) {
-    var active = i == _position;
-    bool left = i == 0;
-
+  Widget _createTab(int index, String text, Icon icon) {
     return GestureDetector(
-      child: Material(
-        elevation: 2,
-        shape: RoundedRectangleBorder(borderRadius: left ? borderTR : borderTL),
-        child: Container(
-            margin: left ? paddingTR : paddingTL,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-                color: color.withAlpha(88),
-                borderRadius: left ? borderTR : borderTL),
-            height: 45,
-            width: 100,
-            child: Icon(
-              Icons.home,
-              color: active ? color : Colors.white,
-              size: active ? 28 : 24,
-            )),
-      ),
+      onTap: () {_navigationTapClick(index);},
+      child: Tab(text: text, icon: icon),
     );
+  }
+
+  _navigationTapClick(index) {
+    if (_index == index) {
+      return;
+    }
+    _index = index;
+    ///不想要动画
+    _controller.jumpTo(MediaQuery.of(context).size.width * index);
   }
 
 }
