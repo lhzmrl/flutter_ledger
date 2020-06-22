@@ -1,6 +1,20 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'file:///D:/Workspace/github/flutter_ledger/lib/app/ledger_app.dart';
+import 'package:ledger/app/ledger_app.dart';
+import 'package:ledger/ui/error/view/error_page.dart';
 
 void main() {
-  runApp(LedgerApp());
+  runZoned(() {
+    ErrorWidget.builder = (FlutterErrorDetails details) {
+      Zone.current.handleUncaughtError(details.exception, details.stack);
+      return ErrorPage(
+          details.exception.toString() + "\n " + details.stack.toString(), details);
+    };
+    runApp(LedgerApp());
+  }, onError: (Object obj, StackTrace stack) {
+    print(obj);
+    print(stack);
+  });
+
 }

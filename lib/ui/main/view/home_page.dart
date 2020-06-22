@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ledger/common/ledger_icon.dart';
 import 'package:ledger/i10n/localization_intl.dart';
+import 'package:ledger/res/ledger_style.dart';
 import 'package:ledger/ui/property/view/property_page.dart';
 import 'package:ledger/ui/statistics/view/statistics_page.dart';
 import 'package:ledger/ui/transaction/view/transactions_page.dart';
