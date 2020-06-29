@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:ledger/common/net/log_interceptor.dart';
-import 'package:ledger/common/util/common_util.dart';
 import 'package:ledger/res/ledger_style.dart';
 
 class ErrorPage extends StatefulWidget {
@@ -17,11 +16,11 @@ class ErrorPage extends StatefulWidget {
 
 class ErrorPageState extends State<ErrorPage> {
   static List<Map<String, dynamic>> sErrorStack =
-  new List<Map<String, dynamic>>();
+      new List<Map<String, dynamic>>();
   static List<String> sErrorName = new List<String>();
 
   final TextEditingController textEditingController =
-  new TextEditingController();
+      new TextEditingController();
 
   addError(FlutterErrorDetails details) {
     try {
@@ -37,7 +36,8 @@ class ErrorPageState extends State<ErrorPage> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.width;
+    double width =
+        MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.width;
     return Container(
       color: LedgerColors.primaryValue,
       child: new Center(
@@ -48,7 +48,7 @@ class ErrorPageState extends State<ErrorPage> {
           decoration: new BoxDecoration(
             color: Colors.white.withAlpha(30),
             gradient:
-            RadialGradient(tileMode: TileMode.mirror, radius: 0.1, colors: [
+                RadialGradient(tileMode: TileMode.mirror, radius: 0.1, colors: [
               Colors.white.withAlpha(10),
               LedgerColors.primaryValue.withAlpha(100),
             ]),

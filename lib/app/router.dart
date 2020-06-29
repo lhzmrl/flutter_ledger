@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'file:///D:/Workspace/github/flutter_ledger/lib/ui/main/view/home_page.dart';
-import 'file:///D:/Workspace/github/flutter_ledger/lib/ui/transaction/view/add_new_trans_page.dart';
+import 'package:ledger/ui/main/view/home_page.dart';
+import 'package:ledger/ui/transaction/view/add_new_trans_page.dart';
 import 'package:ledger/util/router_utils.dart';
 
 class Router {
