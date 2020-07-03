@@ -9,6 +9,7 @@ class LedgerIcons {
   static const IconData NAVI_PROPERTY = const IconData(0xe60F, fontFamily: FONT_FAMILY);
   static const IconData NAVI_TRANS = const IconData(0xe608, fontFamily: FONT_FAMILY);
   static const IconData NAVI_STATISTICS = const IconData(0xe601, fontFamily: FONT_FAMILY);
+  static const IconData NAVI_ADD_TRANS = const IconData(0xe60D, fontFamily: FONT_FAMILY);
 
 }
 
