@@ -80,7 +80,7 @@ class _HomePageState extends State<HomePage>
             secondCurve: Curves.easeInToLinear,
             sizeCurve: Curves.bounceOut,
             crossFadeState: _crossFadeState,
-            duration: Duration(milliseconds: 200),
+            duration: Duration(milliseconds: 300),
             firstChild: ConstrainedBox(
               constraints: BoxConstraints(
                 minWidth: double.infinity, //宽度尽可能大
@@ -209,12 +209,12 @@ class _AnimatedCrossFadeRotateState extends AnimatedWidgetBaseState<AnimatedCros
   @override
   void forEachTween(TweenVisitor<dynamic> visitor) {
     // 在需要更新Tween时，基类会调用此方法
-    _tweenFirst = visitor(_tweenFirst, widget.crossFadeState == CrossFadeState.showFirst ? 1 : 0,
+    _tweenFirst = visitor(_tweenFirst, widget.crossFadeState == CrossFadeState.showFirst ? 1.0 : 0.0,
             (value) {
               print("visitor value:${value}");
               return Tween<double>(begin: value);
             });
-    _tweenSecond = visitor(_tweenSecond, widget.crossFadeState == CrossFadeState.showFirst ? 0 : 1,
+    _tweenSecond = visitor(_tweenSecond, widget.crossFadeState == CrossFadeState.showFirst ? 0.0 : 1.0,
             (value) {
           print("visitor value:${value}");
           return Tween<double>(begin: value);
@@ -233,11 +233,17 @@ class _AnimatedCrossFadeRotateState extends AnimatedWidgetBaseState<AnimatedCros
         children : <Widget>[
           ScaleTransition(
             scale: _tweenFirst.animate(controller),
-            child: widget.firstChild,
+            child: FadeTransition(
+              opacity: _tweenFirst.animate(controller),
+              child: widget.firstChild,
+            ),
           ),
           ScaleTransition(
             scale: _tweenSecond.animate(controller),
-            child: widget.secondChild,
+            child: FadeTransition(
+              opacity: _tweenSecond.animate(controller),
+              child: widget.secondChild,
+            ),
           )
         ],
       ),
