@@ -15,11 +15,11 @@ class LedgerIcons {
 
 class LedgerColors {
 
-  static const int primaryIntValue = 0xFF24292E;
+  static const int primaryIntValue = 0xFF1777FF;
 
-  static const Color primaryValue = Color(primaryIntValue);
-  static const Color primaryLightValue = Color(0xFF42464b);
-  static const Color primaryDarkValue = Color(0xFF121917);
+  static const Color primaryColor = Color(primaryIntValue);
+  static const Color primaryLightColor = Color(0xFF42464b);
+  static const Color primaryDarkColor = Color(0xFF121917);
 
   static const Color white = Color(0xFFFFFFFF);
 

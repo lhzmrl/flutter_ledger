@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2020-06-18T12:01:08.304989",
+  "@@last_modified": "2020-07-06T16:46:34.753115",
   "title": "Keep记账",
   "@title": {
     "description": "应用标题",
@@ -23,6 +23,16 @@
   },
   "statistics": "统计",
   "@statistics": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "property_assets": "资产",
+  "@property_assets": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "property_liabilities": "负债",
+  "@property_liabilities": {
     "type": "text",
     "placeholders": {}
   }

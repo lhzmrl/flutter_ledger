@@ -49,6 +49,18 @@ class LedgerLocalizations {
         name: "statistics");
   }
 
+  String get property_assets {
+    return Intl.message(
+        '资产',
+        name: "property_assets");
+  }
+
+  String get property_liabilities {
+    return Intl.message(
+        '负债',
+        name: "property_liabilities");
+  }
+
 }
 
 class LedgerLocalizationsDelegate extends LocalizationsDelegate<LedgerLocalizations> {

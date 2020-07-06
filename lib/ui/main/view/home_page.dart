@@ -211,20 +211,16 @@ class _AnimatedCrossFadeRotateState extends AnimatedWidgetBaseState<AnimatedCros
     // 在需要更新Tween时，基类会调用此方法
     _tweenFirst = visitor(_tweenFirst, widget.crossFadeState == CrossFadeState.showFirst ? 1.0 : 0.0,
             (value) {
-              print("visitor value:${value}");
               return Tween<double>(begin: value);
             });
     _tweenSecond = visitor(_tweenSecond, widget.crossFadeState == CrossFadeState.showFirst ? 0.0 : 1.0,
             (value) {
-          print("visitor value:${value}");
           return Tween<double>(begin: value);
         });
   }
 
   @override
   Widget build(BuildContext context) {
-    print("controller.value:${controller.value}");
-    print("_tween.evaluate(controller):${_tweenFirst.evaluate(controller)}");
     return RotationTransition(
       alignment: Alignment.center,
       turns: controller,
