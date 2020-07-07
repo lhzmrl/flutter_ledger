@@ -3,8 +3,6 @@ import 'package:ledger/i10n/localization_intl.dart';
 import 'package:ledger/model/AccountType.dart';
 import 'package:ledger/res/ledger_style.dart';
 import 'package:ledger/ui/property/view/account_list_page.dart';
-import 'package:ledger/ui/statistics/view/statistics_page.dart';
-import 'package:ledger/ui/transaction/view/transactions_page.dart';
 
 class PropertyPage extends StatefulWidget {
 

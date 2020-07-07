@@ -61,6 +61,12 @@ class LedgerLocalizations {
         name: "property_liabilities");
   }
 
+  String get add_account {
+    return Intl.message(
+        '添加账户',
+        name: "addAccount");
+  }
+
 }
 
 class LedgerLocalizationsDelegate extends LocalizationsDelegate<LedgerLocalizations> {
