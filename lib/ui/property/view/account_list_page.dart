@@ -27,38 +27,6 @@ class _AccountListPageState extends State<AccountListPage> {
     Account(),
     Account(),
     Account(),
-    Account(),
-    Account(),
-    Account(),
-    Account(),
-    Account(),
-    Account(),
-    Account(),
-    Account(),
-    Account(),
-    Account(),
-    Account(),
-    Account(),
-    Account(),
-    Account(),
-    Account(),
-    Account(),
-    Account(),
-    Account(),
-    Account(),
-    Account(),
-    Account(),
-    Account(),
-    Account(),
-    Account(),
-    Account(),
-    Account(),
-    Account(),
-    Account(),
-    Account(),
-    Account(),
-    Account(),
-    Account(),
   ];
 
   @override
@@ -86,8 +54,11 @@ class _AccountListPageState extends State<AccountListPage> {
       padding: EdgeInsets.fromLTRB(10, 6, 10, 6),
       child: Row(
         children: <Widget>[
-          Text(accountType,
-            textScaleFactor: 1.4,
+          Text(accountType, textScaleFactor: 1.4),
+          PopupMenuButton<String>(
+            itemBuilder: buildPopupMenuItems,
+            offset: Offset(0, 50),
+            elevation: 1,
           ),
           Spacer(
             flex: 1,
@@ -130,6 +101,21 @@ class _AccountListPageState extends State<AccountListPage> {
     return ListView(
       children: children,
     );
+  }
+
+  List<PopupMenuEntry<String>> buildPopupMenuItems(BuildContext buildContext) {
+    return accounts.map((e) => PopupMenuItem<String>(
+      value: e.name,
+      child: Row(
+        children: <Widget>[
+          Checkbox(
+            value: false,
+            onChanged: (value) => {},
+          ),
+          Text(e.name),
+        ],
+      ),
+    )).toList();
   }
 
   Widget generateAccountWidget(Account account) {
@@ -191,12 +177,12 @@ class _AccountListPageState extends State<AccountListPage> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text("现金", textScaleFactor: 1.3,
+              Text(account.name, textScaleFactor: 1.3,
                 style: TextStyle(
                     color: Colors.white
                 ),
               ),
-              Text("现金余额",
+              Text(account.desc,
                 style: TextStyle(
                     color: Colors.white70
                 ),
@@ -204,7 +190,7 @@ class _AccountListPageState extends State<AccountListPage> {
             ],
           ),
           Spacer(),
-          Text(formatAmount(123456.78),
+          Text(formatAmount(account.balance),
             textScaleFactor: 1.2,
             style: TextStyle(color: Colors.white),
           )
@@ -217,21 +203,6 @@ class _AccountListPageState extends State<AccountListPage> {
         accountInfo,
       ],
     );
-  }
-
-}
-
-class AAA extends Gradient {
-  @override
-  Shader createShader(Rect rect, {TextDirection textDirection}) {
-    // TODO: implement createShader
-    throw UnimplementedError();
-  }
-
-  @override
-  Gradient scale(double factor) {
-    // TODO: implement scale
-    throw UnimplementedError();
   }
 
 }

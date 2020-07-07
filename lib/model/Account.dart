@@ -1,10 +1,14 @@
 class Account {
+
+  Account({this.name = "现金", this.desc = "现金余额", this.balance = 0.0});
+
   int id;
   String uuid;
-  String name;
+  String name = "现金";
+  String desc = "现金余额";
   bool isDeleted;
   int orderIndex;
-  double balance;
+  double balance = 0.0;
   int dueDay;
   int billDay;
   double creditLimit;
