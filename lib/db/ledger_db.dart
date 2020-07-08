@@ -1,6 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 
-class LedgerSqlManager {
+class LedgerDbManager {
   static const _VERSION = 1;
 
   static const _NAME = "ledger.db";

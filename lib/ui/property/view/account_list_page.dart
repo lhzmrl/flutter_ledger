@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ledger/app/router.dart';
 import 'package:ledger/i10n/localization_intl.dart';
 import 'package:ledger/model/Account.dart';
 import 'package:ledger/model/AccountType.dart';
@@ -19,15 +20,11 @@ class AccountListPage extends StatefulWidget {
 
 }
 
-class _AccountListPageState extends State<AccountListPage> {
+class _AccountListPageState extends State<AccountListPage> with AutomaticKeepAliveClientMixin {
 
   double _propertyAmount = 0.0;
   double _netAssetAmount = 0.0;
-  List<Account> accounts = [
-    Account(),
-    Account(),
-    Account(),
-  ];
+  var accounts = List<Account>.filled(5, Account());
 
   @override
   Widget build(BuildContext context) {
@@ -75,23 +72,26 @@ class _AccountListPageState extends State<AccountListPage> {
         ],
       ),
     );
-    Widget footer = Container(
-      height: 56,
-      decoration: BoxDecoration(
-        shape: BoxShape.rectangle,
-        border: Border.all(color: Colors.black12, width: 0.5),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      constraints: BoxConstraints(
-        minWidth: double.infinity,
-      ),
-      margin: EdgeInsets.fromLTRB(16, 8, 16, 8),
-      padding: EdgeInsets.fromLTRB(10, 6, 10, 6),
-      child: Row(
-        children: <Widget>[
-          Icon(Icons.add),
-          Text(LedgerLocalizations.of(context).add_account),
-        ],
+    Widget footer = GestureDetector(
+      onTap: () => Navigator.pushNamed(context, Router.addAccount),
+      child: Container(
+        height: 56,
+        decoration: BoxDecoration(
+          shape: BoxShape.rectangle,
+          border: Border.all(color: Colors.black12, width: 0.5),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        constraints: BoxConstraints(
+          minWidth: double.infinity,
+        ),
+        margin: EdgeInsets.fromLTRB(16, 8, 16, 8),
+        padding: EdgeInsets.fromLTRB(10, 6, 10, 6),
+        child: Row(
+          children: <Widget>[
+            Icon(Icons.add),
+            Text(LedgerLocalizations.of(context).add_account),
+          ],
+        ),
       ),
     );
     List<Widget> children = [];
@@ -204,5 +204,8 @@ class _AccountListPageState extends State<AccountListPage> {
       ],
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 
 }

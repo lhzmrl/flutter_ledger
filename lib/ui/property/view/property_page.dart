@@ -13,7 +13,7 @@ class PropertyPage extends StatefulWidget {
 
 }
 
-class _PropertyPageState extends State<PropertyPage> with SingleTickerProviderStateMixin<PropertyPage> {
+class _PropertyPageState extends State<PropertyPage> with SingleTickerProviderStateMixin<PropertyPage>, AutomaticKeepAliveClientMixin {
 
   PageController _pageController; //页面控制器，初始0
   TabController _tabController;
@@ -37,6 +37,7 @@ class _PropertyPageState extends State<PropertyPage> with SingleTickerProviderSt
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     if(null == tabs) {
       tabs = [LedgerLocalizations.of(context).property_assets, LedgerLocalizations.of(context).property_liabilities];
     }
@@ -63,5 +64,8 @@ class _PropertyPageState extends State<PropertyPage> with SingleTickerProviderSt
         )
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 
 }
