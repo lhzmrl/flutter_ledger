@@ -25,10 +25,16 @@ class LedgerLocalizations {
     );
   }
 
-  String get doubleClickHint {
+  String get double_click_hint {
     return Intl.message(
         '双击退出',
         name: "doubleClickHint");
+  }
+
+  String get confirm {
+    return Intl.message(
+        '确认',
+        name: "confirm");
   }
 
   String get property {
@@ -64,7 +70,31 @@ class LedgerLocalizations {
   String get add_account {
     return Intl.message(
         '添加账户',
-        name: "addAccount");
+        name: "add_account");
+  }
+
+  String get select_account_type {
+    return Intl.message(
+        '选择账户类型',
+        name: "select_account_type");
+  }
+
+  String get assets_account {
+    return Intl.message(
+        '资产账户',
+        name: "assets_account");
+  }
+
+  String get liabilities_account {
+    return Intl.message(
+        '负债账户',
+        name: "liabilities_account");
+  }
+
+  create_account(name) {
+    return Intl.message(
+        '创建$name账户',
+        name: "create_account");
   }
 
 }

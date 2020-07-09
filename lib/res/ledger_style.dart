@@ -21,6 +21,8 @@ class LedgerColors {
   static const Color primaryLightColor = Color(0xFF42464b);
   static const Color primaryDarkColor = Color(0xFF121917);
 
+  static const Color lightPageBackground = Color(0xFFF0F0F0);
+
   static const Color white = Color(0xFFFFFFFF);
 
 }

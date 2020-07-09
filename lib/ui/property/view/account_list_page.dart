@@ -73,7 +73,7 @@ class _AccountListPageState extends State<AccountListPage> with AutomaticKeepAli
       ),
     );
     Widget footer = GestureDetector(
-      onTap: () => Navigator.pushNamed(context, Router.addAccount),
+      onTap: () => Navigator.pushNamed(context, Router.listAccountTemplates),
       child: Container(
         height: 56,
         decoration: BoxDecoration(

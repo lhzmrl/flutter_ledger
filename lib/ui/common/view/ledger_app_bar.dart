@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 
 class LedgerAppBar extends StatelessWidget implements PreferredSizeWidget {
 
-  LedgerAppBar(this.title, {this.backPage = ""});
+  LedgerAppBar(this.title, {this.backPage = "", this.actions});
 
   final String backPage;
   final String title;
+  final List<Widget> actions;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +26,7 @@ class LedgerAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       title: Text(title),
       centerTitle: true,
+      actions: actions,
     );
   }
 

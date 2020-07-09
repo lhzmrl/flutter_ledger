@@ -38,7 +38,8 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    return _WillPopScope(Scaffold(
+    return _WillPopScope(
+      Scaffold(
         body: PageView(
           physics: const NeverScrollableScrollPhysics(),
           controller: _pageController,
@@ -62,7 +63,9 @@ class _HomePageState extends State<HomePage>
                       LedgerIcons.NAVI_STATISTICS),
                 ],
               )),
-        )));
+        )
+      )
+    );
   }
 
   Widget _createTab(int index, String text, IconData iconData) {
@@ -286,7 +289,7 @@ class _WillPopScopeTestRouteState extends State<_WillPopScope> {
 
   _showDoubleClickHint() {
     final snackBar = SnackBar(
-      content: Text(LedgerLocalizations.of(context).doubleClickHint),
+      content: Text(LedgerLocalizations.of(context).double_click_hint),
       action: SnackBarAction(
         label: 'Undo',
         onPressed: () {
