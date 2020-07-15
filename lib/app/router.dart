@@ -19,7 +19,16 @@ class Router {
       case home:
         return Right2LeftRouter(child: HomePage());
       case editText:
-        return Right2LeftRouter(child: EditTextPage());
+        Map<String, Object> argsMap = settings.arguments;
+        String title = '';
+        String value = '';
+        TextInputType type;
+        if(null != argsMap) {
+          title = argsMap['title'];
+          value = argsMap['value'];
+          type = argsMap['type'];
+        }
+        return Right2LeftRouter(child: EditTextPage(title, value: value, textInputType: type));
       case addNewTransaction:
         return Right2LeftRouter(child: AddNewTransactionPage());
       case listAccountTemplates:

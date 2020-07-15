@@ -1,11 +1,11 @@
 class Calculator {
 
-  static final Operation plus = Operation(OperationValue.plus, Operation.low);
-  static final Operation minus = Operation(OperationValue.minus, Operation.low);
-  static final Operation multiply = Operation(
-      OperationValue.multiply, Operation.high);
-  static final Operation divide = Operation(
-      OperationValue.divide, Operation.high);
+  static final Operator plus = Operator(OperatorValue.plus, Operator.low);
+  static final Operator minus = Operator(OperatorValue.minus, Operator.low);
+  static final Operator multiply = Operator(
+      OperatorValue.multiply, Operator.high);
+  static final Operator divide = Operator(
+      OperatorValue.divide, Operator.high);
 
 
   static double tryCalculate(String expression) {
@@ -46,8 +46,8 @@ class Calculator {
           }
           operationStack.pop();
         }
-      } else if(element is Operation) {
-        Operation operation = element;
+      } else if(element is Operator) {
+        Operator operation = element;
         while(!operationStack.isEmpty() && !(operationStack.peek() == "(") && operation.priority <= _parseOperation(operationStack.peek()).priority) {
           expressionStack.push(_parseOperation(operationStack.pop()));
         }
@@ -67,7 +67,7 @@ class Calculator {
       Object o = expressionStack[i];
       if (o is double) {
         calculateStack.push(o);
-      } else if (o is Operation) {
+      } else if (o is Operator) {
         double number1 = calculateStack.pop();
         double number2 = calculateStack.pop();
         calculateStack.push(_calculateValue(number1, number2, o));
@@ -77,35 +77,65 @@ class Calculator {
   }
 
   ///两个数运算
-  static double _calculateValue(double number1, double number2, Operation operation) {
-    if (operation.value == OperationValue.plus) {
+  static double _calculateValue(double number1, double number2, Operator operation) {
+    if (operation.value == OperatorValue.plus) {
       return number2 + number1;
     }
-    if (operation.value == OperationValue.minus) {
+    if (operation.value == OperatorValue.minus) {
       return number2 - number1;
     }
-    if (operation.value == OperationValue.multiply) {
+    if (operation.value == OperatorValue.multiply) {
       return number2 * number1;
     }
-    if (operation.value == OperationValue.divide) {
+    if (operation.value == OperatorValue.divide) {
       return number2 / number1;
     }
     return null;
+  }
+
+  static Object getLastOperand(String expression) {
+    final RegExp operation = new RegExp("[+\\-*/()]");
+    String lastChar = expression[expression.length - 1];
+    if(operation.hasMatch(lastChar)) {
+      return _parseOperation(lastChar)??lastChar;
+    }
+    for(int i = expression.length - 1; i >= 0; i--) {
+      String c = expression[i];
+      if(operation.hasMatch(c)) {
+        return double.parse(expression.substring(i + 1, expression.length));
+      }
+    }
+    return null;
+  }
+
+  static String getLastOperandString(String expression) {
+    final RegExp operation = new RegExp("[+\\-*/()]");
+    String lastChar = expression[expression.length - 1];
+    if(operation.hasMatch(lastChar)) {
+      return lastChar;
+    }
+    for(int i = expression.length - 1; i >= 0; i--) {
+      String c = expression[i];
+      if(operation.hasMatch(c)) {
+        return expression.substring(i + 1, expression.length);
+      }
+    }
+    return expression;
   }
 
   /// 算术表达式转换成操作模型 Double类表示操作数, Operation类代表操作符
   static List<Object> _getOperand(String s) {
     List<Object> list = List<Object>();
     int begin = 0;
+    RegExp operation = new RegExp("[+\\-*/()]");
     for (int i = 0; i < s.length; i++) {
       Object c = s[i];
-      RegExp operation = new RegExp("[+\\-*/()]");
       if (operation.hasMatch(c.toString())) {
         String sub = s.substring(begin, i);
         if (sub != "") {
           list.add(double.parse(sub));
         }
-        Operation operation = _parseOperation(c.toString());
+        Operator operation = _parseOperation(c.toString());
         list.add(operation??c.toString());
         begin = i + 1;
       }
@@ -118,17 +148,17 @@ class Calculator {
   }
 
   /// 字符串转换成操作符类
-  static Operation _parseOperation(String c) {
-    if (c == OperationValue.plus.toString()) {
+  static Operator _parseOperation(String c) {
+    if (c == OperatorValue.plus.toString()) {
       return plus;
     }
-    if (c == OperationValue.minus.toString()) {
+    if (c == OperatorValue.minus.toString()) {
       return minus;
     }
-    if (c == OperationValue.multiply.toString()) {
+    if (c == OperatorValue.multiply.toString()) {
       return multiply;
     }
-    if (c == OperationValue.divide.toString()) {
+    if (c == OperatorValue.divide.toString()) {
       return divide;
     }
     return null;
@@ -167,14 +197,14 @@ class Stack<T> {
 }
 
 /// 操作符号枚举
-class OperationValue {
+class OperatorValue {
 
-  static OperationValue plus = OperationValue(("+"));
-  static OperationValue minus = OperationValue("-");
-  static OperationValue multiply = OperationValue("*");
-  static OperationValue divide = OperationValue("/");
+  static OperatorValue plus = OperatorValue(("+"));
+  static OperatorValue minus = OperatorValue("-");
+  static OperatorValue multiply = OperatorValue("*");
+  static OperatorValue divide = OperatorValue("/");
 
-  const OperationValue(this.value);
+  const OperatorValue(this.value);
 
   final String value;
 
@@ -186,15 +216,15 @@ class OperationValue {
 }
 
 ///  算术操作符类
-class Operation {
+class Operator {
 
   static final int low = 1;
   static final  int high = 2;
 
-  Operation(this.value, this.priority);
+  Operator(this.value, this.priority);
 
   int priority;
-  OperationValue value;
+  OperatorValue value;
 
   String toString() {
     return value.toString();

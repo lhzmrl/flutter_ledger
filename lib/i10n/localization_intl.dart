@@ -94,7 +94,31 @@ class LedgerLocalizations {
   create_account(name) {
     return Intl.message(
         '创建$name账户',
-        name: "create_account");
+        name: "create_account_name");
+  }
+
+  String get account_name {
+    return Intl.message(
+        '账户名称',
+        name: "account_name");
+  }
+
+  String get account_amount {
+    return Intl.message(
+        '金额',
+        name: "account_amount");
+  }
+
+  String get edit_account_name {
+    return Intl.message(
+        '编辑账户名称',
+        name: "edit_account_name");
+  }
+
+  String get edit_account_amount {
+    return Intl.message(
+        '编辑账户金额',
+        name: "edit_account_amount");
   }
 
 }

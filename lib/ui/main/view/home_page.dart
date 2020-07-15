@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ledger/app/router.dart';
 import 'package:ledger/i10n/localization_intl.dart';
 import 'package:ledger/res/ledger_style.dart';
@@ -273,7 +274,7 @@ class _WillPopScopeTestRouteState extends State<_WillPopScope> {
         onWillPop: () async {
           if (_lastPressedAt == null ||
               DateTime.now().difference(_lastPressedAt) >
-                  Duration(seconds: 1)) {
+                  Duration(seconds: 2)) {
             //两次点击间隔超过1秒则重新计时
             _lastPressedAt = DateTime.now();
             _showDoubleClickHint();
@@ -288,18 +289,16 @@ class _WillPopScopeTestRouteState extends State<_WillPopScope> {
   }
 
   _showDoubleClickHint() {
-    final snackBar = SnackBar(
-      content: Text(LedgerLocalizations.of(context).double_click_hint),
-      action: SnackBarAction(
-        label: 'Undo',
-        onPressed: () {
-          // Some code to undo the change.
-        },
-      ),
+    FlutterToast(context).showToast(
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          decoration: BoxDecoration(color: Colors.black, borderRadius: BorderRadius.circular(3)),
+          child: Text(LedgerLocalizations.of(context).double_click_hint,
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+        toastDuration: Duration(seconds: 2),
+        gravity: ToastGravity.CENTER
     );
-
-    // Find the Scaffold in the widget tree and use
-    // it to show a SnackBar.
-    Scaffold.of(context).showSnackBar(snackBar);
   }
 }
