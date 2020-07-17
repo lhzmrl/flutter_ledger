@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ledger/app/router.dart';
+import 'package:ledger/db/provider/account_db_provider.dart';
 import 'package:ledger/i10n/localization_intl.dart';
 import 'package:ledger/model/Account.dart';
 import 'package:ledger/model/AccountType.dart';
@@ -25,9 +26,18 @@ class _AccountListPageState extends State<AccountListPage> with AutomaticKeepAli
   double _propertyAmount = 0.0;
   double _netAssetAmount = 0.0;
   var accounts = List<Account>.filled(5, Account());
+  AccountDbProvider _accountDbProvider = AccountDbProvider();
+
+  @override
+  void initState() {
+    super.initState();
+    _accountDbProvider.selectByType(widget.accountType)
+      .then((value) => accounts = value);
+  }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     String accountType;
     switch(widget.accountType) {
       case AccountType.assets:
@@ -177,7 +187,7 @@ class _AccountListPageState extends State<AccountListPage> with AutomaticKeepAli
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(account.name, textScaleFactor: 1.3,
+              Text(account.name, textScaleFactor: 1.2,
                 style: TextStyle(
                     color: Colors.white
                 ),

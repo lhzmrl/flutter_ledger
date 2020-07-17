@@ -17,20 +17,7 @@ class LedgerDbManager {
   }
 
   static void initTables(Database db, int version) async {
-    await db.execute('''CREATE TABLE TbAccount (
-      id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-      uuid TEXT UNIQUE,
-      name TEXT NOT NULL,
-      isDeleted INTEGER AS Boolean NOT NULL DEFAULT 0,
-      orderIndex INTEGER NOT NULL DEFAULT 0,
-      balance REAL AS BigDecimal NOT NULL DEFAULT 0,
-      dueDay INTEGER NOT NULL DEFAULT -1,
-      billDay INTEGER NOT NULL DEFAULT -1,
-      creditLimit REAL AS BigDecimal NOT NULL DEFAULT 0,
-      background TEXT,
-      icon TEXT,
-      mTime INTEGER NOT NULL DEFAULT 0
-    );''');
+    // When creating the db, create the table
   }
 
   static void upgradeTables(Database db, int oldVersion, int newVersion) async {
@@ -45,9 +32,18 @@ class LedgerDbManager {
     return _database;
   }
 
+  /// 表是否存在
+  static isTableExits(String tableName) async {
+    await getCurrentDatabase();
+    var res = await _database.rawQuery(
+        "select * from Sqlite_master where type = 'table' and name = '$tableName'");
+    return res != null && res.length > 0;
+  }
+
   /// 关闭
   static close() {
     _database?.close();
     _database = null;
   }
+
 }

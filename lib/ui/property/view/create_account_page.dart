@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ledger/app/router.dart';
+import 'package:ledger/db/provider/account_db_provider.dart';
 import 'package:ledger/i10n/localization_intl.dart';
+import 'package:ledger/model/Account.dart';
 import 'package:ledger/model/AccountTemplate.dart';
+import 'package:ledger/model/AccountType.dart';
 import 'package:ledger/res/ledger_style.dart';
 import 'package:ledger/ui/common/view/ledger_app_bar.dart';
 
@@ -101,6 +104,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
               elevation: 0,
               focusElevation: 0,
               hoverElevation: 0,
+              highlightElevation: 0,
               height: 56,
               color: Colors.white,
               onPressed: () => {},
@@ -127,6 +131,14 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   }
 
   void _createAccount() {
-
+    AccountDbProvider accountDbProvider = new AccountDbProvider();
+    Account account = new Account();
+    account.name = name;
+    account.type = widget.accountTemplate.accountType;
+    account.balance = double.parse(amount) * (widget.accountTemplate.accountType == AccountType.assets ? 1 : -1);
+    Future future = accountDbProvider.insert(account);
+    future.then((value) {
+      Navigator.pop<bool>(context, true);
+    });
   }
 }
