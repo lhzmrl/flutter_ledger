@@ -10,7 +10,7 @@ class AccountDbProvider extends BaseDbProvider {
   static const String COLUMN_ID = "id";
   static const String COLUMN_UUID = "uuid";
   static const String COLUMN_NAME = "name";
-  static const String COLUMN_ID_DELETED = "is_deleted";
+  static const String COLUMN_IS_DELETED = "is_deleted";
   static const String COLUMN_ORDER_INDEX = "order_index";
   static const String COLUMN_TYPE_ID = "type_id";
   static const String COLUMN_BALANCE = "balance";
@@ -31,7 +31,7 @@ class AccountDbProvider extends BaseDbProvider {
       $COLUMN_ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
       $COLUMN_UUID TEXT UNIQUE,
       $COLUMN_NAME TEXT NOT NULL,
-      $COLUMN_ID_DELETED INTEGER NOT NULL DEFAULT 0,
+      $COLUMN_IS_DELETED INTEGER NOT NULL DEFAULT 0,
       $COLUMN_TYPE_ID INTEGER NOT NULL DEFAULT 0,
       $COLUMN_ORDER_INDEX INTEGER NOT NULL DEFAULT 0,
       $COLUMN_BALANCE REAL NOT NULL DEFAULT 0,
@@ -63,14 +63,28 @@ class AccountDbProvider extends BaseDbProvider {
         whereArgs: [accountType.index]);
     List<Account> accounts = new List<Account>();
     maps.forEach((element) {
-      Account account = convertDbMap2Account(element);
+      Account account = _convertDbMap2Account(element);
       accounts.add(account);
     });
     return accounts;
   }
 
-  Account convertDbMap2Account(Map<String, dynamic> map) {
+  Account _convertDbMap2Account(Map<String, dynamic> map) {
     Account account = new Account();
+    account.id = map[COLUMN_ID];
+    account.uuid = map[COLUMN_UUID];
+    account.name = map[COLUMN_NAME];
+    account.isDeleted = map[COLUMN_IS_DELETED] == 1 ? true : false;
+    account.orderIndex = map[COLUMN_ORDER_INDEX];
+    account.type = AccountType.values[map[COLUMN_TYPE_ID]];
+    account.balance = map[COLUMN_BALANCE];
+    account.dueDay = map[COLUMN_DUE_DAY];
+    account.billDay = map[COLUMN_BILL_DAY];
+    account.creditLimit = map[COLUMN_CREDIT_LIMIT];
+    account.background = map[COLUMN_BACKGROUND];
+    account.icon = map[COLUMN_ICON];
+    account.deviceId = map[COLUMN_DEVICE_ID];
+    account.mTime = map[COLUMN_M_TIME];
     return account;
   }
 

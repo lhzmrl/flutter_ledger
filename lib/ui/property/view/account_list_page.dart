@@ -25,14 +25,18 @@ class _AccountListPageState extends State<AccountListPage> with AutomaticKeepAli
 
   double _propertyAmount = 0.0;
   double _netAssetAmount = 0.0;
-  var accounts = List<Account>.filled(5, Account());
+  var accounts = List<Account>();
   AccountDbProvider _accountDbProvider = AccountDbProvider();
 
   @override
   void initState() {
     super.initState();
+    refresh();
+  }
+
+  void refresh() {
     _accountDbProvider.selectByType(widget.accountType)
-      .then((value) => accounts = value);
+        .then((value) => setState(() {accounts = value;}));
   }
 
   @override
@@ -83,7 +87,15 @@ class _AccountListPageState extends State<AccountListPage> with AutomaticKeepAli
       ),
     );
     Widget footer = GestureDetector(
-      onTap: () => Navigator.pushNamed(context, Router.listAccountTemplates),
+      onTap: () {
+        Navigator.pushNamed(context, Router.listAccountTemplates)
+            .then((value) {
+              if(null == value) {
+                return;
+              }
+              refresh();
+        });
+      },
       child: Container(
         height: 56,
         decoration: BoxDecoration(
@@ -200,7 +212,7 @@ class _AccountListPageState extends State<AccountListPage> with AutomaticKeepAli
             ],
           ),
           Spacer(),
-          Text(formatAmount(account.balance),
+          Text(formatAmount(account.balance * (widget.accountType == AccountType.assets ? 1 : -1)),
             textScaleFactor: 1.2,
             style: TextStyle(color: Colors.white),
           )

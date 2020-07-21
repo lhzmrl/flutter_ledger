@@ -15,25 +15,12 @@ class PropertyPage extends StatefulWidget {
 
 class _PropertyPageState extends State<PropertyPage> with SingleTickerProviderStateMixin<PropertyPage>, AutomaticKeepAliveClientMixin {
 
-  PageController _pageController; //页面控制器，初始0
   TabController _tabController;
   List<String> tabs;
   List<Widget> pages = <Widget>[
     AccountListPage(AccountType.assets),
     AccountListPage(AccountType.liabilities),
   ];
-
-  @override
-  void initState() {
-    super.initState();
-    _pageController = new PageController();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _pageController.dispose(); //释放控制器
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +40,6 @@ class _PropertyPageState extends State<PropertyPage> with SingleTickerProviderSt
             labelColor: LedgerColors.primaryColor,
             unselectedLabelColor: Colors.black,
             indicatorWeight: 2,
-            onTap: (tab) => _pageController.animateToPage(tab, duration: Duration(milliseconds: 200), curve: Curves.linear),
             tabs: tabs.map((e) => Tab(text: e)).toList(),
             controller: _tabController,
           ),

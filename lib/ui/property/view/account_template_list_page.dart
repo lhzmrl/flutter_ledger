@@ -68,7 +68,15 @@ class _AccountTemplateListPageState extends State<AccountTemplateListPage> {
       ));
     }
     return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, Router.createAccount, arguments: accountTemplate),
+      onTap: () {
+        Navigator.pushNamed(context, Router.createAccount, arguments: accountTemplate)
+            .then((value) {
+              if(null == value) {
+                return;
+              }
+              Navigator.pop(context, true);
+        });
+      },
       behavior: HitTestBehavior.opaque,
       child: Container(
         padding: EdgeInsets.fromLTRB(16, 10, 16, 10),
