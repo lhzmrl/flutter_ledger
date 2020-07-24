@@ -164,7 +164,10 @@ class _HomePageState extends State<HomePage>
   _navigationTapClick(index) {
     if (_index == index) {
       if (_index == 0) {
-        Navigator.pushNamed(context, Router.addNewTransaction);
+//        Navigator.pushNamed(context, Router.addNewTransaction);
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Scaffold(
+        body: TransactionsPage(),
+      )));
       }
       return;
     }

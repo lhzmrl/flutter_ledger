@@ -30,7 +30,7 @@ class Router {
         }
         return Right2LeftRouter(child: EditTextPage(title, value: value, textInputType: type));
       case addNewTransaction:
-        return Right2LeftRouter(child: AddNewTransactionPage());
+        return Bottom2TopRouter(child: AddNewTransactionPage());
       case listAccountTemplates:
         return Right2LeftRouter(child: AccountTemplateListPage());
       case createAccount:

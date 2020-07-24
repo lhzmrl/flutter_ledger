@@ -89,3 +89,5 @@ flutter:
     - family: LedgerIcon
       fonts:
         - asset: assets/iconfont/ledger_iconfont.ttf
+flutter_intl:
+  enabled: true
